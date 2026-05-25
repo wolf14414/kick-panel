@@ -12,18 +12,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// API: Kick Kanal Bilgisi (403 Korumasını Aşmak İçin Güçlendirildi)
+// 1. Kick API Kontrolü (Hata yönetimini güçlendirdik)
 app.get('/api/check-kick/:channel', async (req, res) => {
     try {
         const channelName = req.params.channel.toLowerCase();
         const response = await axios.get(`https://kick.com/api/v1/channels/${channelName}`, {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-                'Accept': 'application/json',
-                'Referer': 'https://kick.com/',
-                'Sec-Fetch-Site': 'same-origin'
+                'Referer': 'https://kick.com/'
             },
-            timeout: 8000
+            timeout: 5000
         });
         
         return res.json({ 
@@ -33,31 +31,30 @@ app.get('/api/check-kick/:channel', async (req, res) => {
             username: response.data.user?.username || channelName
         });
     } catch (error) {
-        console.error(`Kick API Hatası: ${error.message}`);
-        res.json({ success: false, isLive: false, message: "Hata" });
+        return res.json({ success: false, isLive: false, message: "Hata" });
     }
 });
 
-// API: Python Bot Tetikleyici
+// 2. Python Bot Tetikleyici (Hata raporlama özelliği eklendi)
 app.post('/api/start-viewer', (req, res) => {
     const { channelName, viewerCount } = req.body;
     if (!channelName) return res.status(400).json({ success: false });
 
-    console.log(`\n🚀 [BOT TETİKLENDİ] Kanal: ${channelName}`);
+    console.log(`\n🚀 [TETİKLENDİ] Kanal: ${channelName}`);
 
-    // Python tetikleme (python3 yerine doğrudan komutu env ile temizleyerek çağırıyoruz)
+    // python3 komutu Render'da kurulu olan en güncel Python'u tetikler.
     const pythonProcess = spawn('python3', [path.join(__dirname, 'hapsetmekick.py'), channelName, String(viewerCount || '100')], {
         cwd: __dirname,
-        env: { ...process.env, PYTHONIOENCODING: 'utf-8' }
+        env: { ...process.env }
     });
 
-    pythonProcess.stdout.on('data', (data) => console.log(`[Bot]: ${data.toString().trim()}`));
-    pythonProcess.stderr.on('data', (data) => console.error(`[Bot Hatası]: ${data.toString().trim()}`));
-    pythonProcess.on('close', (code) => console.log(`[Sistem] Bot Kapandı. Kod: ${code}`));
+    pythonProcess.stdout.on('data', (data) => console.log(`[Bot Log]: ${data.toString()}`));
+    pythonProcess.stderr.on('data', (data) => console.error(`[Bot Hata]: ${data.toString()}`));
+    pythonProcess.on('close', (code) => console.log(`[Sistem] Bot sonlandı. Çıkış Kodu: ${code}`));
 
-    return res.json({ success: true, message: "İstek iletildi." });
+    return res.json({ success: true, message: "Bot başlatıldı." });
 });
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
-app.listen(PORT, () => console.log(`🔥 Panel Aktif. Port: ${PORT}`));
+app.listen(PORT, () => console.log(`🔥 Panel Hazır! Port: ${PORT}`));
