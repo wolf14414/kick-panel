@@ -7,7 +7,29 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-900 text-white font-sans antialiased flex h-screen overflow-hidden">
+<body class="bg-gray-900 text-white font-sans antialiased h-screen overflow-hidden flex">
+
+    <div id="loginScreen" class="fixed inset-0 bg-gray-900 flex items-center justify-center z-50">
+        <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-2xl w-full max-w-md text-center">
+            <div class="w-16 h-16 bg-green-500/10 text-green-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl border border-green-500/30">
+                <i class="fa-solid fa-key"></i>
+            </div>
+            <h2 class="text-2xl font-bold mb-2">Sisteme Giriş Yapın</h2>
+            <p class="text-gray-400 text-sm mb-6">Devam etmek için geçerli bir lisans anahtarı girmeniz gerekmektedir.</p>
+            
+            <div id="loginError" class="p-3 bg-red-900/50 border border-red-500 text-red-400 rounded-lg text-sm mb-4 font-semibold hidden"></div>
+
+            <div class="space-y-4">
+                <input type="text" id="licenseInput" class="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg focus:outline-none focus:border-green-500 text-center tracking-widest font-mono uppercase" placeholder="XXXX-XXXX-XXXX-XXXX">
+                <button onclick="verifyLicense()" id="loginBtn" class="w-full bg-green-500 hover:bg-green-600 font-bold py-3 px-6 rounded-lg transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-right-to-bracket"></i> Paneli Aç
+                </button>
+            </div>
+            <div class="mt-6 text-xs text-gray-500">
+                Lisans anahtarınız yok mu? Yönetici ile iletişime geçin.
+            </div>
+        </div>
+    </div>
 
     <aside class="w-64 bg-gray-800 border-r border-gray-700 flex flex-col">
         <div class="h-16 flex items-center justify-center border-b border-gray-700">
@@ -24,6 +46,11 @@
                 <i class="fa-solid fa-key"></i> Lisans Yönetimi
             </a>
         </nav>
+        <div class="p-4 border-t border-gray-700">
+            <button onclick="logout()" class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/30 rounded-lg transition font-semibold">
+                <i class="fa-solid fa-right-from-bracket"></i> Oturumu Kapat
+            </button>
+        </div>
     </aside>
 
     <main class="flex-1 p-8 overflow-y-auto">
@@ -64,6 +91,60 @@
     </main>
 
     <script>
+        // Sayfa yüklendiğinde lisans kontrolü yap
+        document.addEventListener("DOMContentLoaded", () => {
+            const savedKey = localStorage.getItem("kick_panel_license");
+            if (savedKey) {
+                document.getElementById("loginScreen").classList.add("hidden");
+            }
+        });
+
+        // LİSANS DOĞRULAMA FONKSİYONU
+        async function verifyLicense() {
+            const licenseKey = document.getElementById("licenseInput").value.trim();
+            const errorDiv = document.getElementById("loginError");
+            const loginBtn = document.getElementById("loginBtn");
+
+            if (!licenseKey) {
+                errorDiv.textContent = "Lütfen bir lisans anahtarı girin!";
+                errorDiv.classList.remove("hidden");
+                return;
+            }
+
+            errorDiv.classList.add("hidden");
+            loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Kontrol ediliyor...';
+
+            try {
+                const response = await fetch('/api/verify-license', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ licenseKey: licenseKey })
+                });
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    // Lisans doğruysa tarayıcıya kaydet ve ekranı gizle
+                    localStorage.setItem("kick_panel_license", licenseKey);
+                    document.getElementById("loginScreen").classList.add("hidden");
+                } else {
+                    errorDiv.textContent = result.message || "Geçersiz lisans anahtarı!";
+                    errorDiv.classList.remove("hidden");
+                }
+            } catch (error) {
+                errorDiv.textContent = "Sunucu bağlantı hatası!";
+                errorDiv.classList.remove("hidden");
+            } finally {
+                loginBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Paneli Aç';
+            }
+        }
+
+        // OTURUMU KAPATMA FONKSİYONU
+        function logout() {
+            localStorage.removeItem("kick_panel_license");
+            window.location.reload();
+        }
+
+        // KICK KANAL DURUMU SORGULAMA FONKSİYONU
         async function checkChannel() {
             const channelName = document.getElementById('channelName').value.trim();
             if (!channelName) return alert("Lütfen bir kanal adı girin!");
@@ -78,19 +159,16 @@
             statusAlert.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Backend üzerinden Kick API sorgulanıyor...';
 
             try {
-                // Kendi sunucumuzdaki API uç noktasına istek atıyoruz
                 const response = await fetch(`/api/check-kick/${channelName}`);
                 const result = await response.json();
 
                 if (result.success && result.isLive) {
-                    // ÇEVRİMİÇİ
                     statusAlert.className = "p-4 rounded-lg mb-6 font-semibold flex items-center gap-3 bg-green-900 border border-green-500 text-green-400";
                     statusAlert.innerHTML = `<i class="fa-solid fa-circle-check"></i> [${channelName}] şu an yayında! Özelliklerin kilidi açıldı.`;
                     
                     featureCards.forEach(card => card.classList.remove('opacity-50', 'cursor-not-allowed'));
                     featureButtons.forEach(btn => btn.removeAttribute('disabled'));
                 } else {
-                    // ÇEVRİMDIŞI
                     statusAlert.className = "p-4 rounded-lg mb-6 font-semibold flex items-center gap-3 bg-red-900 border border-red-500 text-red-400";
                     statusAlert.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> [${channelName}] şu an çevrimdışı. Uyarı: Yayın kapalıyken özellikler kullanılamaz!`;
                     
