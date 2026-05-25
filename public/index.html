@@ -3,101 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kick Yönetim Paneli</title>
+    <title>Kick Servis | Profesyonel Yayın Yönetim Paneli</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #030303; color: #FFFFFF; }
+        .bg-custom-green { background-color: #19C300; }
+        .text-custom-green { color: #19C300; }
+        .border-custom-green { border-color: #19C300; }
+        
+        /* Geçiş Efektleri */
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        .slide-in-right { animation: slideInRight 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+        /* Dashboard Kartları */
+        .dashboard-card { background: #0F0F0F; border: 1px solid #1A1A1A; border-radius: 12px; padding: 1.25rem; }
+        .card-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: #6F6F6F; font-weight: 600; }
+        .status-badge { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+    </style>
 </head>
-<body class="bg-gray-900 text-white font-sans antialiased h-screen overflow-hidden flex">
+<body class="antialiased overflow-x-hidden">
 
-    <div id="loginScreen" class="fixed inset-0 bg-gray-900 flex items-center justify-center z-50">
-        <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 shadow-2xl w-full max-w-md text-center">
-            <div class="w-16 h-16 bg-green-500/10 text-green-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl border border-green-500/30">
-                <i class="fa-solid fa-key"></i>
+    <nav class="fixed top-0 left-0 w-full z-40 bg-[#030303]/80 backdrop-blur-sm border-b border-[#1A1A1A]">
+        <div class="max-w-[90rem] mx-auto px-6 h-16 flex items-center justify-between">
+            <h1 class="text-2xl font-bold text-white flex items-center gap-2"><i class="fa-brands fa-kickstarter text-custom-green"></i> Kick Servis</h1>
+            <div class="flex items-center gap-6 text-sm text-[#A0A0A0]">
+                <a href="#" class="hover:text-white">Özellikler</a>
+                <a href="#" class="hover:text-white">Fiyatlar</a>
+                <a href="#" class="hover:text-white">Destek</a>
             </div>
-            <h2 class="text-2xl font-bold mb-2">Sisteme Giriş Yapın</h2>
-            <p class="text-gray-400 text-sm mb-6">Devam etmek için geçerli bir lisans anahtarı girmeniz gerekmektedir.</p>
+            <div class="flex items-center gap-4">
+                <button class="px-3 py-1 bg-[#1A1A1A] rounded-md text-sm text-white flex items-center gap-2">TR Türkçe <i class="fa-solid fa-chevron-down text-xs"></i></button>
+                <button onclick="openLoginFlow()" class="text-sm text-white">Giriş Yap</button>
+                <button class="px-5 py-2 bg-custom-green text-black font-bold rounded-full text-sm">Discord'a Katıl</button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="landingScreen" class="min-h-screen pt-16 grid grid-cols-[1fr,minmax(auto,1440px),1fr] items-center relative overflow-hidden">
+        <div class="col-start-2 px-12 grid grid-cols-[1.5fr,1fr] gap-16 items-center">
             
-            <div id="loginError" class="p-3 bg-red-900/50 border border-red-500 text-red-400 rounded-lg text-sm mb-4 font-semibold hidden"></div>
-
-            <div class="space-y-4">
-                <input type="text" id="licenseInput" class="w-full px-4 py-3 bg-gray-900 border border-gray-600 rounded-lg focus:outline-none focus:border-green-500 text-center tracking-widest font-mono uppercase" placeholder="XXXX-XXXX-XXXX-XXXX">
-                <button onclick="verifyLicense()" id="loginBtn" class="w-full bg-green-500 hover:bg-green-600 font-bold py-3 px-6 rounded-lg transition flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-right-to-bracket"></i> Paneli Aç
-                </button>
+            <div class="space-y-6 fade-in">
+                <div class="px-4 py-1.5 bg-[#0F0F0F] rounded-full border border-[#1A1A1A] text-xs text-[#A0A0A0] inline-flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 bg-custom-green rounded-full"></span> Tek Kanala Bağlı Lisans Paneli
+                </div>
+                <h2 class="text-7xl font-bold leading-tight">Tek Kanal<br> Çok Cihaz,<br> Tam Kontrol</h2>
+                <p class="text-lg text-[#A0A0A0] max-w-xl">Kick Servis; kendi kanalına chat, viewer ve takipçi işlemlerini yapabileceğin, mobil/PC/moderatör erişimi olan güvenli yayın panelidir.</p>
+                <div class="flex items-center gap-4 pt-4">
+                    <button class="px-8 py-3 bg-custom-green text-black font-bold rounded-full text-lg">Lisans Al</button>
+                    <button onclick="openLoginFlow()" class="px-8 py-3 bg-[#1A1A1A] text-white font-bold rounded-full text-lg">Giriş Yap</button>
+                </div>
+                <div class="flex items-center gap-3 pt-6 text-[#A0A0A0] text-sm">
+                    <span class="px-3 py-1 bg-[#0F0F0F] rounded-full border border-[#1A1A1A]">Sadece kendi kanalın</span>
+                    <span class="px-3 py-1 bg-[#0F0F0F] rounded-full border border-[#1A1A1A]">Mobil / PC giriş</span>
+                    <span class="px-3 py-1 bg-[#0F0F0F] rounded-full border border-[#1A1A1A]">Moderatör erişimi</span>
+                </div>
             </div>
-            <div class="mt-6 text-xs text-gray-500">
-                Lisans anahtarınız yok mu? Yönetici ile iletişime geçin.
+
+            <div class="dashboard-mockup fade-in scale-95 opacity-90 border border-[#1A1A1A] rounded-2xl p-6 bg-[#030303] shadow-2xl relative">
+                <div class="text-xs text-[#6F6F6F] absolute top-6 right-6 font-bold tracking-widest uppercase">KICK SERVIS CONTROL</div>
+                <div class="grid grid-cols-3 gap-4 pt-6">
+                    <div class="dashboard-card"><div class="flex justify-between items-center mb-3"><span class="card-title">Chat Modları</span> <span class="status-badge text-custom-green">CANLI</span></div><div class="space-y-1.5 text-sm text-white"><div>Döngü <span class="text-[#6F6F6F] float-right">Aktif</span></div><div>Tek Geçiş <span class="text-[#6F6F6F] float-right">Hazır</span></div><div>Sıralı <span class="text-[#6F6F6F] float-right">Hazır</span></div></div></div>
+                    <div class="dashboard-card"><div class="flex justify-between items-center mb-3"><span class="card-title">Viewer</span> <span class="status-badge text-custom-green">HEDEF</span></div><div class="w-full h-1 bg-[#1A1A1A] rounded-full overflow-hidden mb-2"><div class="w-[60%] h-full bg-custom-green rounded-full"></div></div><div class="text-xs text-[#A0A0A0]">Hedef mod: <span class="text-white">Canlı hedef</span></div></div>
+                    <div class="dashboard-card"><div class="flex justify-between items-center mb-3"><span class="card-title">Chat Bot Opsiyonları</span> <span class="status-badge text-custom-green">HAZIR</span></div><div class="space-y-1 text-sm text-[#A0A0A0]"><div class="text-white">Sabit Mesaj (Persona)</div><div>Anti-repeat / Sıralı</div><div>Önce takip et</div></div></div>
+                    <div class="dashboard-card col-span-2"><div class="flex justify-between items-center mb-3"><span class="card-title">Takipçi Teslimi</span> <span class="status-badge text-yellow-400">KOTALI</span></div><div class="flex gap-2"><span class="px-2 py-0.5 bg-[#1A1A1A] text-xs rounded text-white">Takip hakkı</span><span class="px-2 py-0.5 bg-[#1A1A1A] text-xs rounded text-white">Başlat/Durdur</span></div></div>
+                    <div class="dashboard-card"><div class="flex justify-between items-center mb-3"><span class="card-title">Kanal Erişimi</span> <span class="status-badge text-yellow-400">ÇOK CİHAZ</span></div><div class="flex gap-2 text-white text-sm"><span>PC + Mobil</span><span>Moderator</span></div></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="loginFlow" class="fixed inset-0 z-50 bg-[#030303]/90 hidden overflow-hidden flex justify-end">
+        
+        <div onclick="closeLoginFlow()" class="fixed inset-0 bg-[#030303]/90"></div>
+
+        <div class="w-[480px] h-full bg-[#0F0F0F] border-l border-[#1A1A1A] p-12 z-50 slide-in-right relative flex flex-col justify-center">
+            <button onclick="closeLoginFlow()" class="absolute top-10 left-10 text-xl text-[#6F6F6F] hover:text-white">Geri</button>
+            <div class="text-xs text-[#6F6F6F] absolute top-10 right-10 font-bold tracking-widest uppercase">TR Türkçe <i class="fa-solid fa-chevron-down text-xs"></i></div>
+
+            <div id="loginStep1" class="space-y-8">
+                <h3 class="text-4xl font-bold">Başlamak için</h3>
+                <p class="text-lg text-[#A0A0A0]">Lisans anahtarınla giriş yap veya Discord'dan satın al.</p>
+                <div class="space-y-4">
+                    <button onclick="showStep2()" class="w-full flex items-center justify-center gap-3 px-8 py-4 bg-custom-green text-black font-bold rounded-xl text-lg transition">
+                        <i class="fa-solid fa-key"></i> Lisans ile Giriş
+                    </button>
+                    <button class="w-full flex items-center justify-center gap-3 px-8 py-4 bg-[#1A1A1A] text-white font-bold rounded-xl text-lg transition">
+                        <i class="fa-brands fa-discord"></i> Discord
+                    </button>
+                    <div class="text-center text-sm text-[#6F6F6F] py-3 relative"><span class="bg-[#0F0F0F] px-4">veya</span><div class="absolute top-1/2 left-0 w-full h-px bg-[#1A1A1A] z-[-1]"></div></div>
+                    <button class="w-full flex items-center justify-center gap-3 px-8 py-4 bg-transparent border border-[#1A1A1A] text-blue-400 font-bold rounded-xl text-lg transition">
+                        <i class="fa-solid fa-gem"></i> İtemsatış'tan Al
+                    </button>
+                </div>
+            </div>
+
+            <div id="loginStep2" class="space-y-8 hidden">
+                <h3 class="text-4xl font-bold">Giriş Yap</h3>
+                <p class="text-lg text-[#A0A0A0]">Lisans anahtarınızı girin</p>
+                
+                <div id="loginError" class="p-4 bg-red-900/50 border border-red-500 text-red-400 rounded-lg text-sm font-semibold hidden"></div>
+
+                <div class="space-y-4">
+                    <div class="text-sm font-semibold tracking-wider text-[#A0A0A0]">LISANS KEY</div>
+                    <input type="text" id="licenseInput" class="w-full px-5 py-4 bg-[#030303] border border-[#1A1A1A] rounded-xl focus:outline-none focus:border-custom-green text-xl tracking-widest font-mono uppercase" placeholder="KS-XXXX-XXXX-XXXX">
+                    <button onclick="verifyLicense()" id="loginBtn" class="w-full flex items-center justify-center gap-3 px-8 py-4 bg-custom-green text-black font-bold rounded-xl text-lg transition">
+                         Giriş Yap
+                    </button>
+                </div>
+                <div class="grid grid-cols-2 gap-4 pt-6">
+                    <button class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-[#1A1A1A] text-white font-semibold rounded-lg text-sm"><i class="fa-solid fa-life-ring"></i> Destek</button>
+                    <button class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-[#1A1A1A] text-white font-semibold rounded-lg text-sm"><i class="fa-solid fa-shopping-cart"></i> Lisans Al</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <aside class="w-64 bg-gray-800 border-r border-gray-700 flex flex-col">
-        <div class="h-16 flex items-center justify-center border-b border-gray-700">
-            <h1 class="text-xl font-bold text-green-400"><i class="fa-brands fa-kickstarter"></i> Kick Panel</h1>
-        </div>
-        <nav class="flex-1 px-4 py-6 space-y-2">
-            <a href="#" class="flex items-center gap-3 px-4 py-3 bg-gray-700 rounded-lg text-green-400 hover:bg-gray-600 transition">
-                <i class="fa-solid fa-chart-line"></i> Yönetici Paneli
-            </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition">
-                <i class="fa-solid fa-user-plus"></i> Hesap Ekleme
-            </a>
-            <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white transition">
-                <i class="fa-solid fa-key"></i> Lisans Yönetimi
-            </a>
-        </nav>
-        <div class="p-4 border-t border-gray-700">
-            <button onclick="logout()" class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white border border-red-500/30 rounded-lg transition font-semibold">
-                <i class="fa-solid fa-right-from-bracket"></i> Oturumu Kapat
-            </button>
-        </div>
-    </aside>
+    <div id="dashboardScreen" class="min-h-screen pt-16 flex justify-center items-center relative overflow-hidden hidden">
+        <div class="absolute inset-0 bg-[#030303] z-0"></div>
+        <div onclick="logout()" class="absolute top-24 right-10 z-40 px-4 py-2 bg-red-600/20 text-red-400 rounded-lg font-bold text-sm cursor-pointer border border-red-500/30">Oturumu Kapat</div>
 
-    <main class="flex-1 p-8 overflow-y-auto">
-        <header class="mb-8">
-            <h2 class="text-3xl font-bold">Yönetici Paneli</h2>
-            <p class="text-gray-400 mt-1">Kick kanalınızı bağlayın ve yönetin.</p>
-        </header>
+        <div class="w-full max-w-7xl px-12 z-10 grid grid-cols-[1.5fr,1fr] gap-12 items-center fade-in">
+             <div class="space-y-4">
+                 <h2 class="text-6xl font-bold leading-tight">Yayın<br> Kontrol<br> Paneli</h2>
+                 <p class="text-lg text-[#A0A0A0]">Kanalını bağlayarak canlı bot veviewer özelliklerini yönetmeye başla.</p>
+             </div>
 
-        <div class="bg-gray-800 p-6 rounded-xl border border-gray-700 shadow-lg max-w-2xl">
-            <h3 class="text-xl font-semibold mb-4">Kanal Ekle / Sorgula</h3>
-            <div class="flex gap-4">
-                <div class="flex-1 relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">kick.com/</span>
-                    <input type="text" id="channelName" class="w-full pl-24 pr-4 py-3 bg-gray-900 border border-gray-600 rounded-lg focus:outline-none focus:border-green-500 transition" placeholder="kanaladi">
-                </div>
-                <button onclick="checkChannel()" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition">
-                    Bağla
-                </button>
-            </div>
-        </div>
-
-        <div id="statusPanel" class="mt-8 hidden">
-            <div id="statusAlert" class="p-4 rounded-lg mb-6 font-semibold flex items-center gap-3"></div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="featuresGrid">
-                <div class="feature-card bg-gray-800 p-6 rounded-xl border border-gray-700 opacity-50 cursor-not-allowed transition">
-                    <h4 class="text-lg font-bold mb-2"><i class="fa-solid fa-robot text-blue-400"></i> Chat Botu Bağla</h4>
-                    <p class="text-sm text-gray-400">Kanal çevrimiçi olduğunda botu aktif edebilirsiniz.</p>
-                    <button class="mt-4 px-4 py-2 bg-blue-600 rounded-lg disabled:opacity-50" disabled>Aktif Et</button>
-                </div>
-                <div class="feature-card bg-gray-800 p-6 rounded-xl border border-gray-700 opacity-50 cursor-not-allowed transition">
-                    <h4 class="text-lg font-bold mb-2"><i class="fa-solid fa-chart-pie text-purple-400"></i> Anlık İstatistik</h4>
-                    <p class="text-sm text-gray-400">Yayın istatistiklerini görüntülemek için yayın açık olmalıdır.</p>
-                    <button class="mt-4 px-4 py-2 bg-purple-600 rounded-lg disabled:opacity-50" disabled>Görüntüle</button>
+             <div class="dashboard-mockup border border-custom-green rounded-2xl p-6 bg-[#030303] shadow-2xl relative">
+                <div class="text-xs text-custom-green absolute top-6 right-6 font-bold tracking-widest uppercase">DASHBOARD CANLI</div>
+                <div class="grid grid-cols-3 gap-4 pt-6">
+                    <div class="dashboard-card"><div class="flex justify-between items-center mb-3"><span class="card-title">Chat Modları</span> <span class="status-badge text-custom-green">CANLI</span></div><div class="space-y-1.5 text-sm text-white"><div>Döngü <span class="text-[#6F6F6F] float-right hover:text-white cursor-pointer">Aktif Et</span></div><div>Tek Geçiş <span class="text-[#6F6F6F] float-right hover:text-white cursor-pointer">Hazır</span></div><div>Sıralı <span class="text-[#6F6F6F] float-right hover:text-white cursor-pointer">Hazır</span></div></div></div>
+                    <div class="dashboard-card"><div class="flex justify-between items-center mb-3"><span class="card-title">Viewer</span> <span class="status-badge text-yellow-400">PASİF</span></div><div class="w-full h-1 bg-[#1A1A1A] rounded-full overflow-hidden mb-2"><div class="w-0 h-full bg-custom-green rounded-full"></div></div><div class="text-xs text-[#A0A0A0]">Kanal: <span class="text-white hover:text-custom-green cursor-pointer">Bağla</span></div></div>
+                    <div class="dashboard-card"><div class="flex justify-between items-center mb-3"><span class="card-title">Chat Bot</span> <span class="status-badge text-yellow-400">PASİF</span></div><div class="space-y-1 text-sm text-[#A0A0A0]"><div class="text-white">Bot ayarı yok.</div><div class="text-xs hover:text-white cursor-pointer">Şablon Seç</div></div></div>
+                    <div class="dashboard-card col-span-2"><div class="flex justify-between items-center mb-3"><span class="card-title">Takipçi Teslimi</span> <span class="status-badge text-[#6F6F6F]">HAZIR</span></div><div class="flex gap-2"><button class="px-3 py-1 bg-[#1A1A1A] text-xs rounded text-white hover:bg-custom-green hover:text-black font-bold">Başlat</button></div></div>
+                    <div class="dashboard-card"><div class="flex justify-between items-center mb-3"><span class="card-title">Kanal</span> <span class="status-badge text-red-400">BAĞLI DEĞİL</span></div><div class="flex items-center gap-2 text-white text-sm"><span class="px-2 py-0.5 bg-[#1A1A1A] rounded text-white hover:bg-white hover:text-black cursor-pointer">kick.com/</span></div></div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
     <script>
-        // Sayfa yüklendiğinde lisans kontrolü yap
+        // Sayfa Yüklendiğinde Lisans Kontrolü
         document.addEventListener("DOMContentLoaded", () => {
             const savedKey = localStorage.getItem("kick_panel_license");
             if (savedKey) {
-                document.getElementById("loginScreen").classList.add("hidden");
+                showDashboard();
             }
         });
+
+        // EKRAN VE FLOW GEÇİŞ FONKSİYONLARI
+        function openLoginFlow() { document.getElementById("loginFlow").classList.remove("hidden"); showStep1(); }
+        function closeLoginFlow() { document.getElementById("loginFlow").classList.add("hidden"); }
+        function showStep1() { document.getElementById("loginStep1").classList.remove("hidden"); document.getElementById("loginStep2").classList.add("hidden"); }
+        function showStep2() { document.getElementById("loginStep1").classList.add("hidden"); document.getElementById("loginStep2").classList.remove("hidden"); }
+        function showDashboard() { 
+            document.getElementById("landingScreen").classList.add("hidden"); 
+            document.getElementById("loginFlow").classList.add("hidden"); 
+            document.getElementById("dashboardScreen").classList.remove("hidden"); 
+            document.querySelector("nav").classList.add("hidden");
+        }
+        function logout() { localStorage.removeItem("kick_panel_license"); window.location.reload(); }
 
         // LİSANS DOĞRULAMA FONKSİYONU
         async function verifyLicense() {
@@ -105,14 +174,9 @@
             const errorDiv = document.getElementById("loginError");
             const loginBtn = document.getElementById("loginBtn");
 
-            if (!licenseKey) {
-                errorDiv.textContent = "Lütfen bir lisans anahtarı girin!";
-                errorDiv.classList.remove("hidden");
-                return;
-            }
-
+            if (!licenseKey) { errorDiv.textContent = "Lütfen bir lisans anahtarı girin!"; errorDiv.classList.remove("hidden"); return; }
             errorDiv.classList.add("hidden");
-            loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Kontrol ediliyor...';
+            loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></span>';
 
             try {
                 const response = await fetch('/api/verify-license', {
@@ -121,64 +185,10 @@
                     body: JSON.stringify({ licenseKey: licenseKey })
                 });
                 const result = await response.json();
-
-                if (response.ok && result.success) {
-                    // Lisans doğruysa tarayıcıya kaydet ve ekranı gizle
-                    localStorage.setItem("kick_panel_license", licenseKey);
-                    document.getElementById("loginScreen").classList.add("hidden");
-                } else {
-                    errorDiv.textContent = result.message || "Geçersiz lisans anahtarı!";
-                    errorDiv.classList.remove("hidden");
-                }
-            } catch (error) {
-                errorDiv.textContent = "Sunucu bağlantı hatası!";
-                errorDiv.classList.remove("hidden");
-            } finally {
-                loginBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Paneli Aç';
-            }
-        }
-
-        // OTURUMU KAPATMA FONKSİYONU
-        function logout() {
-            localStorage.removeItem("kick_panel_license");
-            window.location.reload();
-        }
-
-        // KICK KANAL DURUMU SORGULAMA FONKSİYONU
-        async function checkChannel() {
-            const channelName = document.getElementById('channelName').value.trim();
-            if (!channelName) return alert("Lütfen bir kanal adı girin!");
-
-            const statusPanel = document.getElementById('statusPanel');
-            const statusAlert = document.getElementById('statusAlert');
-            const featureCards = document.querySelectorAll('.feature-card');
-            const featureButtons = document.querySelectorAll('.feature-card button');
-
-            statusPanel.classList.remove('hidden');
-            statusAlert.className = "p-4 rounded-lg mb-6 font-semibold flex items-center gap-3 bg-gray-700 text-gray-300";
-            statusAlert.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Backend üzerinden Kick API sorgulanıyor...';
-
-            try {
-                const response = await fetch(`/api/check-kick/${channelName}`);
-                const result = await response.json();
-
-                if (result.success && result.isLive) {
-                    statusAlert.className = "p-4 rounded-lg mb-6 font-semibold flex items-center gap-3 bg-green-900 border border-green-500 text-green-400";
-                    statusAlert.innerHTML = `<i class="fa-solid fa-circle-check"></i> [${channelName}] şu an yayında! Özelliklerin kilidi açıldı.`;
-                    
-                    featureCards.forEach(card => card.classList.remove('opacity-50', 'cursor-not-allowed'));
-                    featureButtons.forEach(btn => btn.removeAttribute('disabled'));
-                } else {
-                    statusAlert.className = "p-4 rounded-lg mb-6 font-semibold flex items-center gap-3 bg-red-900 border border-red-500 text-red-400";
-                    statusAlert.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> [${channelName}] şu an çevrimdışı. Uyarı: Yayın kapalıyken özellikler kullanılamaz!`;
-                    
-                    featureCards.forEach(card => card.classList.add('opacity-50', 'cursor-not-allowed'));
-                    featureButtons.forEach(btn => btn.setAttribute('disabled', 'true'));
-                }
-            } catch (error) {
-                statusAlert.className = "p-4 rounded-lg mb-6 font-semibold flex items-center gap-3 bg-yellow-900 border border-yellow-500 text-yellow-400";
-                statusAlert.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> Sistemsel bir hata oluştu veya kanal bulunamadı.`;
-            }
+                if (response.ok && result.success) { localStorage.setItem("kick_panel_license", licenseKey); showDashboard(); } 
+                else { errorDiv.textContent = result.message || "Geçersiz lisans anahtarı!"; errorDiv.classList.remove("hidden"); }
+            } catch (error) { errorDiv.textContent = "Sunucu bağlantı hatası!"; errorDiv.classList.remove("hidden"); } 
+            finally { loginBtn.innerHTML = 'Giriş Yap'; }
         }
     </script>
 </body>
