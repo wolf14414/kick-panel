@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kick Servis | Gelişmiş Yayın Yönetim Paneli</title>
+    <title>Kick Servis | Profesyonel Yayın Yönetim Paneli</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -28,6 +28,7 @@
         .text-custom-green { color: #19C300; }
         .border-custom-green { border-color: #19C300; }
         
+        /* Gelişmiş Dikey Kaydırma Çubuğu (Chat ve Genel) */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #08080a; }
         ::-webkit-scrollbar-thumb { background: #1f2026; border-radius: 4px; }
@@ -40,7 +41,7 @@
 <body class="antialiased text-zinc-300">
 
     <div id="landingScreen" class="min-h-screen hero-gradient flex flex-col justify-between">
-        <nav class="w-full h-20 flex items-center justify-between px-8 max-w-[90rem] mx-auto w-full">
+        <nav class="w-full h-20 flex items-center justify-between px-8 max-w-[90rem] mx-auto">
             <h1 class="text-xl font-extrabold text-white flex items-center gap-2 tracking-tight">
                 <span class="text-custom-green">Kick</span> Servis
             </h1>
@@ -121,9 +122,9 @@
                 </div>
                 <div class="space-y-3">
                     <button onclick="showStep2()" class="w-full py-4 bg-custom-green text-black font-black rounded-xl text-sm flex items-center justify-center gap-2 hover:opacity-95 transition"><i class="fa-solid fa-key text-xs"></i> Lisans ile Giriş</button>
-                    <button class="w-full py-4 bg-[#232428] text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 hover:bg-[#2b2d32] transition"><i class="fa-brands fa-discord"></i> Discord</button>
+                    <button class="w-full py-4 bg-[#232428] text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 hover:bg-[#2b2d32] transition"><i class="fa-brands fa-discord"></i> Discord ile Katıl</button>
                     <div class="text-center text-[11px] text-zinc-600 font-bold uppercase tracking-wider py-1">veya</div>
-                    <button class="w-full py-3.5 bg-zinc-950 border border-white/5 text-zinc-300 font-bold rounded-xl text-xs flex items-center justify-center gap-2 hover:bg-zinc-900 transition"><i class="fa-solid fa-gem text-blue-400"></i> İtemSatış'tan Al</button>
+                    <button class="w-full py-3.5 bg-zinc-950 border border-white/5 text-zinc-300 font-bold rounded-xl text-xs flex items-center justify-center gap-2 hover:bg-zinc-900 transition"><i class="fa-solid fa-gem text-blue-400"></i> İtemSatış'tan Satın Al</button>
                 </div>
             </div>
 
@@ -174,23 +175,21 @@
                     </nav>
                 </div>
 
-                <div class="px-3 py-4 flex-1 flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between px-3 mb-2">
-                            <span class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest block">KANALLAR</span>
-                            <span id="accountCount" class="text-[10px] font-mono font-bold text-zinc-500">0/5</span>
-                        </div>
-                        
-                        <div class="px-2 mb-3">
-                            <div class="bg-black border border-white/5 rounded-xl p-1.5 flex items-center justify-between gap-1">
-                                <input type="text" id="newChannelInput" class="bg-transparent text-xs text-white font-bold px-2 focus:outline-none w-full" placeholder="Kanal adı...">
-                                <button onclick="addNewChannel()" class="bg-custom-green text-black font-black text-[11px] px-2.5 py-1.5 rounded-lg hover:opacity-90 transition shrink-0">Ekle</button>
-                            </div>
-                        </div>
-
-                        <div id="channelsListContainer" class="space-y-1 px-1">
-                            </div>
+                <div class="px-3 py-4 flex-1 flex flex-col">
+                    <div class="flex items-center justify-between px-3 mb-2">
+                        <span class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest block">HESAP YÖNETİMİ</span>
+                        <span id="accountCount" class="text-[10px] font-mono font-bold text-zinc-500">0/5</span>
                     </div>
+                    
+                    <div class="px-2 mb-3">
+                        <div class="bg-black border border-white/5 rounded-xl p-1.5 flex items-center justify-between gap-1">
+                            <input type="text" id="newChannelInput" class="bg-transparent text-xs text-white font-bold px-2 focus:outline-none w-full" placeholder="Kanal adı...">
+                            <button onclick="addNewChannel()" class="bg-custom-green text-black font-black text-[11px] px-2.5 py-1.5 rounded-lg hover:opacity-90 transition shrink-0">Ekle</button>
+                        </div>
+                    </div>
+
+                    <div id="channelsListContainer" class="space-y-1 px-1 overflow-y-auto flex-1 max-h-[220px]">
+                        </div>
                 </div>
             </div>
 
@@ -210,17 +209,17 @@
                 <div class="flex items-center gap-2 text-xs font-bold text-zinc-400">
                     <span class="w-2 h-2 rounded-full bg-custom-green"></span> Sistem Aktif & Bağlantılar Hazır
                 </div>
-                <div id="globalNotification" class="text-xs font-semibold text-zinc-500">Sol menüden hesap ekleyip yönetim sağlayın.</div>
+                <div id="globalNotification" class="text-xs font-semibold text-zinc-500">Sol menüden hesap ekleyip üzerine tıklayın.</div>
             </div>
 
             <div class="flex-1 flex overflow-hidden">
                 
-                <div class="flex-1 p-6 overflow-y-auto space-y-6 bg-[#070708]">
+                <div class="flex-1 p-6 overflow-y-auto space-y-4 bg-[#070708] flex flex-col">
                     
-                    <div class="grid grid-cols-1 xl:grid-cols-[1.3fr,1fr] gap-4 bg-[#0c0d12] border border-white/[0.04] rounded-xl p-4 shadow-2xl">
+                    <div class="grid grid-cols-1 xl:grid-cols-[1.2fr,1fr] gap-4 bg-[#0c0d12] border border-white/[0.04] rounded-xl p-4 shadow-2xl flex-1">
                         
-                        <div class="space-y-2">
-                            <div class="flex justify-between items-center bg-black/30 px-3 py-2 rounded-lg border border-white/5">
+                        <div class="flex flex-col space-y-2 h-full">
+                            <div class="flex justify-between items-center bg-black/30 px-3 py-2 rounded-lg border border-white/5 shrink-0">
                                 <div class="flex items-center gap-2">
                                     <span class="w-2 h-2 rounded-full bg-zinc-600 animate-pulse" id="liveIndicator"></span>
                                     <h3 class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">CANLI YAYIN EKRANI</h3>
@@ -228,128 +227,109 @@
                                 <span id="viewerCounter" class="text-[11px] font-mono font-bold text-zinc-500">0 İzleyici</span>
                             </div>
                             
-                            <div class="aspect-video w-full max-w-[560px] bg-black rounded-lg border border-white/5 overflow-hidden relative mx-auto xl:mx-0" id="videoWrapper">
+                            <div class="w-full aspect-video bg-black rounded-lg border border-white/5 overflow-hidden relative" id="videoWrapper">
                                 <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4 text-zinc-600 bg-zinc-950/40">
-                                    <i class="fa-solid fa-circle-play text-3xl mb-2 text-zinc-700"></i>
-                                    <p class="text-[11px] font-bold">Kanal Seçildiğinde Canlı Akış Başlar</p>
+                                    <i class="fa-solid fa-circle-play text-2xl mb-1 text-zinc-700"></i>
+                                    <p class="text-[11px] font-bold">Soldan Bir Kanal Seçildiğinde Oynatıcı Başlar</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="flex flex-col h-full min-h-[220px] xl:min-h-0 space-y-2">
-                            <div class="flex justify-between items-center bg-black/30 px-3 py-2 rounded-lg border border-white/5">
-                                <h3 class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider"><i class="fa-solid fa-comments text-custom-green mr-1.5"></i> CANLI CHAT</h3>
-                                <button class="text-[10px] font-bold text-zinc-500 hover:text-white bg-zinc-900 border border-white/5 px-2 py-0.5 rounded">Temizle</button>
+                        <div class="flex flex-col h-full space-y-2">
+                            <div class="flex justify-between items-center bg-black/30 px-3 py-2 rounded-lg border border-white/5 shrink-0">
+                                <h3 class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider"><i class="fa-solid fa-comments text-custom-green mr-1.5"></i> SOHBET ODASI</h3>
+                                <button onclick="document.getElementById('chatBox').innerHTML=''" class="text-[10px] font-bold text-zinc-500 hover:text-white bg-zinc-900 border border-white/5 px-2 py-0.5 rounded">Temizle</button>
                             </div>
-                            <div id="chatBox" class="flex-1 p-3 font-mono text-xs overflow-y-auto space-y-2 bg-black/40 rounded-lg border border-white/5 max-h-[260px]">
-                                <div class="text-zinc-600 italic font-sans text-[11px]">[Sistem] Sohbet odası hazır.</div>
+                            <div id="chatBox" class="flex-1 p-3 font-mono text-xs overflow-y-auto space-y-2 bg-black/40 rounded-lg border border-white/5 min-h-[250px] max-h-[380px]">
+                                <div class="text-zinc-600 italic font-sans text-[11px]">[Sistem] Sohbet akışı dinlenmeye hazır.</div>
                             </div>
                         </div>
 
                     </div>
 
-                    <div class="bg-[#0c0d12] border border-white/[0.04] rounded-xl p-4">
-                        <span class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest block mb-2">GÜNLÜK — LOG PANELİ</span>
-                        <div class="bg-black/40 border border-white/5 rounded-lg p-4 h-32 font-mono text-xs text-zinc-500 overflow-y-auto" id="systemLogBox">
-                            Henüz log yok...
+                    <div class="bg-[#0c0d12] border border-white/[0.04] rounded-xl p-3 shrink-0">
+                        <span class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest block mb-1">SİSTEM LOGLARI</span>
+                        <div class="bg-black/40 border border-white/5 rounded-lg p-3 h-20 font-mono text-[11px] text-zinc-500 overflow-y-auto" id="systemLogBox">
+                            Panel başlatıldı, hesap bekleniyor...
                         </div>
                     </div>
                 </div>
 
-                <aside class="w-96 bg-[#0d0e12] border-l border-white/[0.04] p-6 overflow-y-auto shrink-0 flex flex-col justify-between">
+                <aside class="w-80 bg-[#0d0e12] border-l border-white/[0.04] p-5 overflow-y-auto shrink-0 flex flex-col justify-between">
                     
                     <div id="tabContentWrapper">
                         
-                        <div id="content-chat" class="space-y-5 tab-content">
+                        <div id="content-chat" class="space-y-4 tab-content">
                             <div>
                                 <span class="text-[10px] bg-sky-500/10 text-sky-400 border border-sky-500/20 px-2 py-0.5 rounded font-bold uppercase">Chat Kontrolü</span>
-                                <h3 class="text-base font-extrabold text-white mt-2">Chat Botu Başlat</h3>
-                                <p class="text-xs text-zinc-500 mt-1">Gelişmiş yapay zeka entegrasyonu ile sohbeti canlandırın.</p>
+                                <h3 class="text-sm font-extrabold text-white mt-1">Chat Botu Başlat</h3>
+                                <p class="text-xs text-zinc-500 mt-0.5">Gelişmiş yapay zeka entegrasyonu ile sohbeti canlandırın.</p>
                             </div>
 
-                            <div class="space-y-3">
+                            <div class="space-y-2">
                                 <label class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">Gönderim Modu</label>
                                 <div class="grid grid-cols-2 gap-2">
-                                    <button class="p-3 bg-zinc-900 border border-custom-green text-custom-green text-xs font-bold rounded-xl text-center">Döngü Modu</button>
-                                    <button class="p-3 bg-zinc-900/40 border border-white/5 text-zinc-500 text-xs font-bold rounded-xl text-center hover:text-white transition">Sıralı Mod</button>
+                                    <button class="p-2.5 bg-zinc-900 border border-custom-green text-custom-green text-xs font-bold rounded-xl text-center">Döngü Modu</button>
+                                    <button class="p-2.5 bg-zinc-900/40 border border-white/5 text-zinc-500 text-xs font-bold rounded-xl text-center hover:text-white transition">Sıralı Mod</button>
                                 </div>
                             </div>
 
-                            <div class="space-y-3">
-                                <label class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">Mesaj Gönderme Hızı (Saniye)</label>
+                            <div class="space-y-2">
+                                <label class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">Mesaj Hızı (Saniye)</label>
                                 <input type="range" min="1" max="60" value="5" class="w-full accent-[#19C300] h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer">
-                                <div class="flex justify-between text-[11px] font-bold text-zinc-500 font-mono"><span>1s</span><span>30s</span><span>60s</span></div>
                             </div>
 
-                            <div class="bg-black/50 border border-white/5 p-4 rounded-xl space-y-2">
-                                <div class="flex justify-between items-center text-xs"><span class="text-zinc-400 font-bold">Anti-Repeat Filtresi</span><input type="checkbox" checked class="w-4 h-4 accent-[#19C300]"></div>
-                                <div class="flex justify-between items-center text-xs"><span class="text-zinc-400 font-bold">Önce Takip Et Şartı</span><input type="checkbox" class="w-4 h-4 accent-[#19C300]"></div>
+                            <div class="bg-black/50 border border-white/5 p-3 rounded-xl space-y-2">
+                                <div class="flex justify-between items-center text-xs"><span class="text-zinc-400 font-bold">Anti-Repeat Filtresi</span><input type="checkbox" checked class="w-3 h-3 accent-[#19C300]"></div>
+                                <div class="flex justify-between items-center text-xs"><span class="text-zinc-400 font-bold">Önce Takip Et Şartı</span><input type="checkbox" class="w-3 h-3 accent-[#19C300]"></div>
                             </div>
 
-                            <button onclick="simulateAction('Chat bot döngüsü tetiklendi!')" class="w-full py-3 bg-custom-green text-black font-extrabold rounded-xl text-xs uppercase tracking-wider shadow-lg shadow-green-500/10">BOTU BAŞLAT</button>
+                            <button onclick="simulateAction('Chat bot döngüsü tetiklendi!')" class="w-full py-3 bg-custom-green text-black font-black rounded-xl text-xs uppercase tracking-wider shadow-lg shadow-green-500/10">BOTU BAŞLAT</button>
                         </div>
 
-                        <div id="content-izleyici" class="space-y-5 tab-content hidden">
+                        <div id="content-izleyici" class="space-y-4 tab-content hidden">
                             <div class="flex justify-between items-center">
                                 <div>
                                     <span class="text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded font-bold uppercase">Canlı İzleyici</span>
-                                    <h3 class="text-base font-extrabold text-white mt-2">İzleyici Gönderimi</h3>
+                                    <h3 class="text-sm font-extrabold text-white mt-1">İzleyici Gönderimi</h3>
                                 </div>
-                                <span class="text-[10px] font-bold text-zinc-500 font-mono">Son Güncelleme: 21:02</span>
                             </div>
 
                             <div class="bg-zinc-950 p-1 rounded-xl grid grid-cols-2 text-center text-xs font-bold border border-white/5">
-                                <div class="py-2 bg-zinc-900 text-custom-green rounded-lg border border-white/5 cursor-pointer">Hedef</div>
-                                <div class="py-2 text-zinc-500 cursor-pointer hover:text-white">Ekle</div>
-                            </div>
-
-                            <div class="space-y-3">
-                                <div class="flex justify-between text-xs font-bold"><span class="text-zinc-400">İzleyici Miktarı</span><span class="text-custom-green font-mono text-sm" id="viewerSliderVal">100 izleyici</span></div>
-                                <input type="range" min="10" max="400" value="100" id="viewerSlider" oninput="document.getElementById('viewerSliderVal').innerText = this.value + ' izleyici'" class="w-full accent-[#19C300] h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer">
-                                <div class="flex gap-2"><span class="px-3 py-1.5 bg-zinc-900 border border-custom-green text-custom-green font-mono font-bold text-xs rounded-lg">100</span><span class="px-3 py-1.5 bg-zinc-900 border border-white/5 text-zinc-500 font-mono font-bold text-xs rounded-lg">250</span></div>
+                                <div class="py-1.5 bg-zinc-900 text-custom-green rounded-lg border border-white/5 cursor-pointer">Hedef</div>
+                                <div class="py-1.5 text-zinc-500 cursor-pointer hover:text-white">Ekle</div>
                             </div>
 
                             <div class="space-y-2">
-                                <label class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider block">Gönderim Hızı</label>
-                                <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-bold">
-                                    <button class="py-2.5 bg-zinc-900/50 border border-white/5 text-zinc-500 rounded-lg"><i class="fa-solid fa-turtle mr-1"></i> Yavaş</button>
-                                    <button class="py-2.5 bg-zinc-900 border border-custom-green text-custom-green rounded-lg"><i class="fa-solid fa-scale-balanced mr-1"></i> Normal</button>
-                                    <button class="py-2.5 bg-zinc-900/50 border border-white/5 text-zinc-500 rounded-lg"><i class="fa-solid fa-bolt mr-1"></i> Hızlı</button>
-                                </div>
+                                <div class="flex justify-between text-xs font-bold"><span class="text-zinc-400">Miktar</span><span class="text-custom-green font-mono text-xs" id="viewerSliderVal">100 izleyici</span></div>
+                                <input type="range" min="10" max="400" value="100" id="viewerSlider" oninput="document.getElementById('viewerSliderVal').innerText = this.value + ' izleyici'" class="w-full accent-[#19C300] h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer">
                             </div>
 
-                            <button onclick="simulateAction('İzleyici gönderimi başlatıldı!')" class="w-full py-3.5 bg-custom-green text-black font-black rounded-xl text-xs uppercase tracking-wider"><i class="fa-solid fa-play mr-1"></i> Başlat</button>
+                            <button onclick="simulateAction('İzleyici gönderimi sıraya alındı!')" class="w-full py-3 bg-custom-green text-black font-black rounded-xl text-xs uppercase tracking-wider"><i class="fa-solid fa-play mr-1"></i> BAŞLAT</button>
 
-                            <div class="bg-red-950/20 border border-red-500/20 rounded-xl p-3 flex justify-between items-center">
-                                <div class="flex items-center gap-2"><i class="fa-solid fa-lock text-red-400 text-xs"></i><span class="text-xs text-red-400 font-semibold">Gerçek İzleyici (PRO)</span></div>
-                                <span class="text-[9px] font-bold text-red-500 bg-red-500/10 px-1.5 py-0.5 rounded">KAPALI</span>
-                            </div>
-
-                            <div class="pt-2 border-t border-white/[0.03] space-y-2.5">
+                            <div class="pt-2 border-t border-white/[0.03] space-y-2">
                                 <label class="text-[10px] font-bold text-zinc-600 uppercase tracking-widest block">Hazır Profiller</label>
-                                <div class="grid grid-cols-2 gap-2 text-xs font-bold"><button class="py-2 bg-zinc-900 border border-custom-green text-custom-green rounded-lg">Kendi (0)</button><button class="py-2 bg-zinc-900/50 border border-white/5 text-zinc-500 rounded-lg">Açık (1)</button></div>
-                                <input type="text" class="w-full px-3 py-2.5 bg-black border border-white/5 rounded-lg text-xs" placeholder="Profil ara...">
+                                <input type="text" class="w-full px-3 py-2 bg-black border border-white/5 rounded-lg text-xs" placeholder="Profil ara...">
                             </div>
                         </div>
 
-                        <div id="content-takipci" class="space-y-5 tab-content hidden">
+                        <div id="content-takipci" class="space-y-4 tab-content hidden">
                             <div>
                                 <span class="text-[10px] bg-purple-500/10 text-purple-400 border border-purple-500/20 px-2 py-0.5 rounded font-bold uppercase">Takipçi Teslimatı</span>
-                                <h3 class="text-base font-extrabold text-white mt-2">Profil Takip Havuzu</h3>
-                                <p class="text-xs text-zinc-500 mt-1">Organik zaman aralıklarıyla kanala takipçi aktarımı sağlar.</p>
+                                <h3 class="text-sm font-extrabold text-white mt-1">Profil Takip Havuzu</h3>
                             </div>
 
-                            <div class="bg-zinc-950 border border-white/5 rounded-xl p-4 space-y-3">
-                                <div class="flex justify-between text-xs"><span class="text-zinc-400 font-semibold">Mevcut Kalan Kota:</span><span class="font-mono font-bold text-yellow-500">2,500 Takipçi</span></div>
+                            <div class="bg-zinc-950 border border-white/5 rounded-xl p-3 space-y-2">
+                                <div class="flex justify-between text-xs"><span class="text-zinc-400 font-semibold">Kalan Kota:</span><span class="font-mono font-bold text-yellow-500">2,500</span></div>
                                 <div class="w-full h-1 bg-zinc-800 rounded-full overflow-hidden"><div class="w-[75%] h-full bg-yellow-500"></div></div>
                             </div>
 
-                            <div class="space-y-2">
-                                <label class="text-xs font-bold text-zinc-400">Gönderilecek Adet</label>
-                                <input type="number" class="w-full px-4 py-3 bg-black border border-white/10 rounded-xl font-mono font-bold text-sm text-white focus:border-custom-green focus:outline-none" value="50">
+                            <div class="space-y-1">
+                                <label class="text-xs font-bold text-zinc-400">Adet</label>
+                                <input type="number" class="w-full px-3 py-2 bg-black border border-white/10 rounded-xl font-mono font-bold text-xs text-white focus:border-custom-green focus:outline-none" value="50">
                             </div>
 
-                            <button onclick="simulateAction('Takipçi gönderim havuzu sıraya alındı!')" class="w-full py-3 bg-custom-green text-black font-extrabold rounded-xl text-xs uppercase tracking-wider">Takip İşlemini Başlat</button>
+                            <button onclick="simulateAction('Takipçi havuzu başlatıldı!')" class="w-full py-3 bg-custom-green text-black font-black rounded-xl text-xs uppercase tracking-wider">TAKİP BAŞLAT</button>
                         </div>
 
                     </div>
@@ -361,7 +341,7 @@
     </div>
 
     <script>
-        let addedChannels = []; // Eklenen kanalların listesi (Max 5)
+        let addedChannels = []; 
         let activeChannel = null;
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -441,30 +421,45 @@
             }
         }
 
-        // MAKSİMUM 5 HESAP EKLEME VE YÖNETİM FONKSİYONU
-        function addNewChannel() {
+        // MAKSİMUM 5 HESAP EKLEME VE API KONTROLÜ
+        async function addNewChannel() {
             const input = document.getElementById("newChannelInput");
             const channelName = input.value.trim().toLowerCase();
 
             if (!channelName) return alert("Lütfen bir kanal adı yazın!");
-            if (addedChannels.includes(channelName)) return alert("Bu kanal zaten eklenmiş!");
+            if (addedChannels.some(c => c.name === channelName)) return alert("Bu kanal zaten eklenmiş!");
             if (addedChannels.length >= 5) return alert("Maksimum 5 kanal ekleyebilirsiniz!");
 
-            addedChannels.push(channelName);
+            // API'den veya güvenli yedekten resmi ve canlılık durumunu sorgulama
+            let avatarUrl = `https://avatar.iran.liara.run/username?username=${channelName}`; // Hızlı yedek görsel
+            let isLive = true; // Gerçekçi test için eklenen kanalları direkt Canlı (Yeşil) başlatıyoruz
+
+            try {
+                const response = await fetch(`/api/check-kick/${channelName}`);
+                const result = await response.json();
+                if (result.success) {
+                    isLive = result.isLive;
+                    if (result.avatar) avatarUrl = result.avatar;
+                }
+            } catch (e) {
+                // Hata durumunda simülasyon modu devrede kalır
+            }
+
+            addedChannels.push({ name: channelName, avatar: avatarUrl, isLive: isLive });
             input.value = "";
             updateChannelsUI();
-            logToSystem(`[Sistem] Yeni kanal listeye eklendi: ${channelName}`);
+            logToSystem(`[Sistem] Kanal listeye eklendi: ${channelName}`);
         }
 
         function removeChannel(name, event) {
-            event.stopPropagation(); // Kart tıklamasını tetiklemesin
-            addedChannels = addedChannels.filter(c => c !== name);
+            event.stopPropagation();
+            addedChannels = addedChannels.filter(c => c.name !== name);
             if (activeChannel === name) {
                 activeChannel = null;
                 resetStreamArea();
             }
             updateChannelsUI();
-            logToSystem(`[Sistem] Kanal listeden kaldırıldı: ${name}`);
+            logToSystem(`[Sistem] Kanal kaldırıldı: ${name}`);
         }
 
         function updateChannelsUI() {
@@ -473,28 +468,32 @@
             container.innerHTML = "";
 
             addedChannels.forEach(channel => {
-                const isActive = activeChannel === channel;
+                const isActive = activeChannel === channel.name;
                 const card = document.createElement("div");
-                card.className = `p-2.5 rounded-xl border flex items-center justify-between cursor-pointer transition ${isActive ? 'bg-zinc-900 border-custom-green text-white' : 'bg-zinc-950 border-white/5 text-zinc-400 hover:bg-zinc-900/40'}`;
+                
+                // Canlı ise Yeşil çerçeve ve yeşil nokta, değilse gri/kırmızı tonlama
+                const borderClass = isActive ? 'border-custom-green bg-zinc-900 text-white' : 'border-white/5 bg-zinc-950 text-zinc-400 hover:bg-zinc-900/40';
+                const dotColor = channel.isLive ? 'bg-custom-green' : 'bg-red-500';
+                
+                card.className = `p-2 rounded-xl border flex items-center justify-between cursor-pointer transition ${borderClass}`;
                 card.onclick = () => selectChannel(channel);
 
                 card.innerHTML = `
                     <div class="flex items-center gap-2.5 overflow-hidden">
                         <div class="relative shrink-0">
-                            <img src="https://avatar.iran.liara.run/username?username=${channel}" class="w-6 h-6 rounded-md border border-white/10">
-                            <span class="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-red-500 rounded-full border border-black"></span>
+                            <img src="${channel.avatar}" class="w-6 h-6 rounded-md object-cover border border-white/10">
+                            <span class="absolute -bottom-0.5 -right-0.5 w-2 h-2 ${dotColor} rounded-full border border-black animate-pulse"></span>
                         </div>
-                        <span class="text-xs font-bold truncate">${channel}</span>
+                        <span class="text-xs font-bold truncate">${channel.name}</span>
                     </div>
-                    <button onclick="removeChannel('${channel}', event)" class="text-zinc-600 hover:text-red-400 p-1 transition"><i class="fa-solid fa-trash-can text-[11px]"></i></button>
+                    <button onclick="removeChannel('${channel.name}', event)" class="text-zinc-600 hover:text-red-400 p-1 transition"><i class="fa-solid fa-trash-can text-[10px]"></i></button>
                 `;
                 container.appendChild(card);
             });
         }
 
-        // Kanala Tıklandığında Yayını ve Chat'i Getiren Bölüm
-        async function selectChannel(channelName) {
-            activeChannel = channelName;
+        function selectChannel(channelObj) {
+            activeChannel = channelObj.name;
             updateChannelsUI();
 
             const globalNotification = document.getElementById('globalNotification');
@@ -502,57 +501,38 @@
             const videoWrapper = document.getElementById('videoWrapper');
             const chatBox = document.getElementById('chatBox');
 
-            globalNotification.innerHTML = `<i class="fa-solid fa-spinner fa-spin text-custom-green"></i> ${channelName} yükleniyor...`;
-
-            try {
-                const response = await fetch(`/api/check-kick/${channelName}`);
-                const result = await response.json();
-
-                if (result.success && result.isLive) {
-                    globalNotification.innerHTML = `<span class="text-custom-green font-bold">${channelName} Seçildi (Canlı)</span>`;
-                    liveIndicator.className = "w-2 h-2 rounded-full bg-red-500 animate-pulse";
-                    document.getElementById('viewerCounter').innerText = "143 İzleyici";
-                    videoWrapper.innerHTML = `<iframe src="https://player.kick.com/${channelName}" class="w-full h-full" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>`;
-                    chatBox.innerHTML = `<iframe src="https://kick.com/popout/${channelName}/chat" class="w-full h-full" frameborder="0" scrolling="no"></iframe>`;
-                } else {
-                    throw new Error("Offline or Demo mode cache conversion");
-                }
-            } catch (error) {
-                // Mock Çevrimdışı / Geliştirme Akışı (Simülasyon)
-                globalNotification.innerHTML = `<span class="text-custom-green font-bold"><i class="fa-solid fa-circle-check"></i> ${channelName} Aktif</span>`;
-                liveIndicator.className = "w-2 h-2 rounded-full bg-red-500 animate-pulse";
-                document.getElementById('viewerCounter').innerText = "143 İzleyici";
-                
-                videoWrapper.innerHTML = `<div class="w-full h-full bg-zinc-900 flex flex-col items-center justify-center text-center p-2"><i class="fa-solid fa-play text-xl text-custom-green mb-1"></i><span class="text-[11px] font-bold text-white">${channelName} Oynatıcı</span></div>`;
-                chatBox.innerHTML = `
-                    <div class="text-[11px] text-zinc-500"><span class="text-custom-green font-bold">Mod:</span> Kanala bağlantı sağlandı.</div>
-                    <div class="text-[11px] text-zinc-400"><span class="text-sky-400 font-bold">İzleyici_1:</span> Selamlar!</div>
-                `;
-            }
-            logToSystem(`[Sistem] Aktif kontrol kanalı değiştirildi: ${channelName}`);
+            globalNotification.innerHTML = `<span class="text-custom-green font-bold">${channelObj.name} Bağlandı</span>`;
+            liveIndicator.className = channelObj.isLive ? "w-2 h-2 rounded-full bg-red-500 animate-pulse" : "w-2 h-2 rounded-full bg-zinc-600";
+            document.getElementById('viewerCounter').innerText = channelObj.isLive ? "143 İzleyici" : "0 İzleyici";
+            
+            // HIZLI OYNATICI VE YAN YANA CHAT AKTARIMI (loading="lazy" optimizasyonu eklendi)
+            videoWrapper.innerHTML = `<iframe src="https://player.kick.com/${channelObj.name}" class="w-full h-full" frameborder="0" scrolling="no" loading="lazy" allowfullscreen="true"></iframe>`;
+            chatBox.innerHTML = `<iframe src="https://kick.com/popout/${channelObj.name}/chat" class="w-full h-full" frameborder="0" loading="lazy" scrolling="no"></iframe>`;
+            
+            logToSystem(`[Sistem] Aktif kanal: ${channelObj.name}`);
         }
 
         function resetStreamArea() {
-            document.getElementById('globalNotification').innerText = "Sol menüden hesap ekleyip yönetim sağlayın.";
+            document.getElementById('globalNotification').innerText = "Sol menüden hesap ekleyip üzerine tıklayın.";
             document.getElementById('liveIndicator').className = "w-2 h-2 rounded-full bg-zinc-600";
             document.getElementById('viewerCounter').innerText = "0 İzleyici";
-            document.getElementById('videoWrapper').innerHTML = `<div class="absolute inset-0 flex flex-col items-center justify-center text-zinc-600"><i class="fa-solid fa-circle-play text-3xl mb-2"></i><p class="text-[11px] font-bold">Kanal Seçildiğinde Canlı Akış Başlar</p></div>`;
-            document.getElementById('chatBox').innerHTML = `<div class="text-zinc-600 italic font-sans text-[11px]">[Sistem] Sohbet odası hazır.</div>`;
+            document.getElementById('videoWrapper').innerHTML = `<div class="absolute inset-0 flex flex-col items-center justify-center text-zinc-600"><i class="fa-solid fa-circle-play text-2xl mb-1"></i><p class="text-[11px] font-bold">Soldan Bir Kanal Seçildiğinde Oynatıcı Başlar</p></div>`;
+            document.getElementById('chatBox').innerHTML = `<div class="text-zinc-600 italic font-sans text-[11px]">[Sistem] Sohbet akışı dinlenmeye hazır.</div>`;
         }
 
         function logToSystem(msg) {
             const logBox = document.getElementById("systemLogBox");
-            if (logBox.innerText.includes("Henüz log yok...")) logBox.innerHTML = "";
+            if (logBox.innerText.includes("Panel başlatıldı")) logBox.innerHTML = "";
             logBox.innerHTML += `<div>${msg}</div>`;
             logBox.scrollTop = logBox.scrollHeight;
         }
 
         function simulateAction(msg) {
-            if (!activeChannel) return alert("Lütfen önce sol menüden bir kanal ekleyin ve seçin!");
+            if (!activeChannel) return alert("Lütfen önce sol menüden bir kanal ekleyin ve üzerine tıklayarak seçin!");
             const notif = document.getElementById('actionNotification');
             notif.innerText = `[${activeChannel.toUpperCase()}] ${msg}`;
             notif.classList.remove('hidden');
-            logToSystem(`[Aksiyon] ${activeChannel} için işlem: ${msg}`);
+            logToSystem(`[Aksiyon] ${msg}`);
             setTimeout(() => { notif.classList.add('hidden'); }, 4000);
         }
     </script>
