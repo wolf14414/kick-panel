@@ -1,0 +1,14 @@
+{
+  "name": "kick-panel-altyapi",
+  "version": "1.0.0",
+  "description": "Profesyonel Kick Yönetim Paneli",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "axios": "^1.6.8",
+    "cors": "^2.8.5"
+  }
+}
